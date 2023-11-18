@@ -1,0 +1,10 @@
+function Main.main 1
+push constant 10
+push constant 10
+call MazeGame.new 2
+pop local 0
+push local 0
+call MazeGame.start 1
+pop temp 0
+push constant 0
+return
