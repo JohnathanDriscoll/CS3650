@@ -1,0 +1,806 @@
+function MazeGame.new 0
+push constant 7
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 1
+push argument 1
+pop this 2
+push constant 154
+pop this 5
+push constant 0
+pop this 6
+push pointer 0
+return
+function MazeGame.start 2
+push argument 0
+pop pointer 0
+push pointer 0
+call MazeGame.draw_initial_grid 1
+pop temp 0
+push this 1
+push this 2
+call Maze.new 2
+pop this 0
+push this 0
+call Maze.create_cells 1
+pop temp 0
+push this 0
+push constant 0
+push constant 0
+call Maze.get_cell 3
+pop local 0
+push this 0
+push local 0
+call Maze.generate_maze 2
+pop temp 0
+push pointer 0
+push this 0
+call MazeGame.update_view 2
+pop temp 0
+push pointer 0
+push this 3
+push this 4
+call MazeGame.draw_player 3
+pop temp 0
+push pointer 0
+call MazeGame.setup_keyboard_listener 1
+pop temp 0
+push constant 0
+return
+function MazeGame.setup_keyboard_listener 4
+push argument 0
+pop pointer 0
+push constant 0
+pop local 3
+label WHILE_EXP0
+push local 3
+not
+not
+if-goto WHILE_END0
+push local 1
+pop local 2
+call Keyboard.keyPressed 0
+pop local 1
+push local 1
+push constant 131
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+pop local 0
+label IF_FALSE0
+push local 1
+push constant 133
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 2
+pop local 0
+label IF_FALSE1
+push local 1
+push constant 130
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 3
+pop local 0
+label IF_FALSE2
+push local 1
+push constant 132
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 4
+pop local 0
+label IF_FALSE3
+push local 1
+push constant 0
+eq
+push local 2
+push constant 0
+eq
+not
+and
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push pointer 0
+push local 0
+call MazeGame.move_player 2
+pop temp 0
+label IF_FALSE4
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function MazeGame.move_player 1
+push argument 0
+pop pointer 0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push this 3
+push this 4
+call Maze.get_cell 3
+pop local 0
+push local 0
+call Cell.top_wall_active 1
+not
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+call MazeGame.erase_player 1
+pop temp 0
+push pointer 0
+call MazeGame.move_player_up 1
+pop temp 0
+label IF_FALSE1
+label IF_FALSE0
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 0
+push this 3
+push this 4
+call Maze.get_cell 3
+pop local 0
+push local 0
+call Cell.bottom_wall_active 1
+not
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+call MazeGame.erase_player 1
+pop temp 0
+push pointer 0
+call MazeGame.move_player_down 1
+pop temp 0
+label IF_FALSE3
+label IF_FALSE2
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 0
+push this 3
+push this 4
+call Maze.get_cell 3
+pop local 0
+push local 0
+call Cell.left_wall_active 1
+not
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push pointer 0
+call MazeGame.erase_player 1
+pop temp 0
+push pointer 0
+call MazeGame.move_player_left 1
+pop temp 0
+label IF_FALSE5
+label IF_FALSE4
+push argument 1
+push constant 4
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 0
+push this 3
+push this 4
+call Maze.get_cell 3
+pop local 0
+push local 0
+call Cell.right_wall_active 1
+not
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push pointer 0
+call MazeGame.erase_player 1
+pop temp 0
+push pointer 0
+call MazeGame.move_player_right 1
+pop temp 0
+label IF_FALSE7
+label IF_FALSE6
+push constant 5
+call Sys.wait 1
+pop temp 0
+push constant 0
+return
+function MazeGame.move_player_up 0
+push argument 0
+pop pointer 0
+push this 3
+push constant 1
+sub
+pop this 3
+push pointer 0
+push this 3
+push this 4
+call MazeGame.draw_player 3
+pop temp 0
+push constant 0
+return
+function MazeGame.move_player_down 0
+push argument 0
+pop pointer 0
+push this 3
+push constant 1
+add
+pop this 3
+push pointer 0
+push this 3
+push this 4
+call MazeGame.draw_player 3
+pop temp 0
+push constant 0
+return
+function MazeGame.move_player_left 0
+push argument 0
+pop pointer 0
+push this 4
+push constant 1
+sub
+pop this 4
+push pointer 0
+push this 3
+push this 4
+call MazeGame.draw_player 3
+pop temp 0
+push constant 0
+return
+function MazeGame.move_player_right 0
+push argument 0
+pop pointer 0
+push this 4
+push constant 1
+add
+pop this 4
+push pointer 0
+push this 3
+push this 4
+call MazeGame.draw_player 3
+pop temp 0
+push constant 0
+return
+function MazeGame.erase_player 15
+push argument 0
+pop pointer 0
+push constant 4
+pop local 8
+push constant 16
+pop local 9
+push local 8
+push local 9
+add
+pop local 10
+push this 5
+push local 8
+add
+pop local 0
+push this 6
+push local 8
+add
+pop local 1
+push this 4
+push local 10
+call Math.multiply 2
+pop local 11
+push this 3
+push local 10
+call Math.multiply 2
+pop local 12
+push local 0
+push local 11
+add
+pop local 0
+push local 1
+push local 12
+add
+pop local 1
+push local 0
+push constant 1
+add
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+push local 0
+push local 9
+add
+pop local 2
+push local 1
+push local 9
+add
+pop local 3
+push local 2
+push constant 2
+sub
+pop local 2
+push local 3
+push constant 2
+sub
+pop local 3
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 1
+push local 2
+push local 3
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function MazeGame.draw_player 15
+push argument 0
+pop pointer 0
+push constant 4
+pop local 8
+push constant 16
+pop local 9
+push local 8
+push local 9
+add
+pop local 10
+push this 5
+push local 8
+add
+pop local 0
+push this 6
+push local 8
+add
+pop local 1
+push argument 2
+push local 10
+call Math.multiply 2
+pop local 11
+push argument 1
+push local 10
+call Math.multiply 2
+pop local 12
+push local 0
+push local 11
+add
+pop local 0
+push local 1
+push local 12
+add
+pop local 1
+push local 0
+push constant 8
+add
+pop local 0
+push local 1
+push constant 8
+add
+pop local 1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 1
+push constant 3
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return
+function MazeGame.update_view 11
+push argument 0
+pop pointer 0
+push constant 10
+pop local 5
+push constant 10
+pop local 6
+push argument 1
+call Maze.get_grid 1
+pop local 0
+push constant 0
+pop local 7
+label WHILE_EXP0
+push local 7
+push local 5
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 8
+label WHILE_EXP1
+push local 8
+push local 6
+lt
+not
+if-goto WHILE_END1
+push local 7
+push local 0
+add
+pop pointer 1
+push that 0
+pop local 10
+push local 8
+push local 10
+add
+pop pointer 1
+push that 0
+pop local 9
+push local 9
+call Cell.left_wall_active 1
+pop local 1
+push local 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+push local 7
+push local 8
+push constant 0
+call MazeGame.remove_wall 4
+pop temp 0
+label IF_FALSE0
+push local 9
+call Cell.right_wall_active 1
+pop local 2
+push local 2
+not
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+push local 7
+push local 8
+push constant 1
+call MazeGame.remove_wall 4
+pop temp 0
+label IF_FALSE1
+push local 9
+call Cell.top_wall_active 1
+pop local 3
+push local 3
+not
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push pointer 0
+push local 7
+push local 8
+push constant 2
+call MazeGame.remove_wall 4
+pop temp 0
+label IF_FALSE2
+push local 9
+call Cell.bottom_wall_active 1
+pop local 4
+push local 4
+not
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+push local 7
+push local 8
+push constant 3
+call MazeGame.remove_wall 4
+pop temp 0
+label IF_FALSE3
+push local 8
+push constant 1
+add
+pop local 8
+goto WHILE_EXP1
+label WHILE_END1
+push local 7
+push constant 1
+add
+pop local 7
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function MazeGame.remove_wall 13
+push argument 0
+pop pointer 0
+push constant 4
+pop local 8
+push constant 16
+pop local 9
+push local 8
+push local 9
+add
+pop local 10
+push this 5
+push local 8
+add
+pop local 0
+push this 6
+push local 8
+add
+pop local 1
+push argument 2
+push local 10
+call Math.multiply 2
+pop local 11
+push argument 1
+push local 10
+call Math.multiply 2
+pop local 12
+push local 0
+push local 11
+add
+pop local 0
+push local 1
+push local 12
+add
+pop local 1
+push local 0
+push local 9
+add
+pop local 2
+push local 1
+push local 9
+add
+pop local 3
+push argument 3
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push local 8
+sub
+pop local 4
+push local 1
+push constant 1
+add
+pop local 5
+push local 0
+pop local 6
+push local 1
+push local 9
+add
+pop local 7
+push local 7
+push constant 1
+sub
+pop local 7
+label IF_FALSE0
+push argument 3
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 0
+push local 9
+add
+pop local 4
+push local 1
+push constant 1
+add
+pop local 5
+push local 0
+push local 10
+add
+pop local 6
+push local 3
+pop local 7
+push local 7
+push constant 1
+sub
+pop local 7
+label IF_FALSE1
+push argument 3
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 0
+push constant 1
+add
+pop local 4
+push local 1
+push local 8
+sub
+pop local 5
+push local 2
+push constant 1
+sub
+pop local 6
+push local 1
+pop local 7
+label IF_FALSE2
+push argument 3
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 0
+push constant 1
+add
+pop local 4
+push local 1
+push local 9
+add
+pop local 5
+push local 2
+push constant 1
+sub
+pop local 6
+push local 3
+push local 8
+add
+pop local 7
+label IF_FALSE3
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 4
+push local 5
+push local 6
+push local 7
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function MazeGame.draw_initial_grid 17
+push argument 0
+pop pointer 0
+push constant 10
+pop local 5
+push local 5
+push constant 1
+add
+pop local 1
+push constant 4
+pop local 0
+push constant 0
+pop local 2
+push constant 16
+pop local 3
+push constant 204
+pop local 4
+push this 5
+pop local 8
+push this 6
+pop local 9
+push local 4
+push local 8
+add
+pop local 12
+push local 4
+push local 9
+add
+pop local 13
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push local 1
+lt
+not
+if-goto WHILE_END0
+push local 8
+push local 0
+add
+pop local 11
+push local 8
+push this 6
+push local 11
+push local 13
+call Screen.drawRectangle 4
+pop temp 0
+push local 9
+push local 0
+add
+pop local 10
+push this 5
+push local 9
+push local 12
+push local 10
+call Screen.drawRectangle 4
+pop temp 0
+push local 8
+push local 0
+add
+push local 3
+add
+pop local 8
+push local 9
+push local 0
+add
+push local 3
+add
+pop local 9
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push this 5
+push local 0
+add
+pop local 6
+push local 12
+push local 0
+sub
+pop local 7
+push constant 0
+push constant 0
+push local 6
+push constant 255
+call Screen.drawRectangle 4
+pop temp 0
+push local 7
+push this 6
+push constant 511
+push constant 255
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 13
+push local 3
+sub
+pop local 14
+push local 14
+push local 0
+sub
+pop local 14
+push local 14
+push constant 1
+add
+pop local 14
+push local 7
+push local 3
+add
+pop local 15
+push local 13
+push local 0
+sub
+pop local 16
+push local 16
+push constant 1
+sub
+pop local 16
+push local 7
+push local 14
+push local 15
+push local 16
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function MazeGame.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

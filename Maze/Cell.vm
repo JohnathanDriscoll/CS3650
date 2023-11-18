@@ -1,0 +1,99 @@
+function Cell.new 0
+push constant 7
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 4
+push argument 1
+pop this 5
+push constant 0
+pop this 6
+push argument 2
+pop this 0
+push argument 3
+pop this 1
+push argument 4
+pop this 2
+push argument 5
+pop this 3
+push pointer 0
+return
+function Cell.mark_as_visited 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+pop this 6
+push constant 0
+return
+function Cell.is_visited 0
+push argument 0
+pop pointer 0
+push this 6
+return
+function Cell.clear_left_wall 0
+push argument 0
+pop pointer 0
+push constant 0
+pop this 0
+push constant 0
+return
+function Cell.clear_right_wall 0
+push argument 0
+pop pointer 0
+push constant 0
+pop this 1
+push constant 0
+return
+function Cell.clear_top_wall 0
+push argument 0
+pop pointer 0
+push constant 0
+pop this 2
+push constant 0
+return
+function Cell.clear_bottom_wall 0
+push argument 0
+pop pointer 0
+push constant 0
+pop this 3
+push constant 0
+return
+function Cell.left_wall_active 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Cell.right_wall_active 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Cell.top_wall_active 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Cell.bottom_wall_active 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Cell.get_row 0
+push argument 0
+pop pointer 0
+push this 4
+return
+function Cell.get_col 0
+push argument 0
+pop pointer 0
+push this 5
+return
+function Cell.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
